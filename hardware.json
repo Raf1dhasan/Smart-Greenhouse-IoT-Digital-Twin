@@ -1,0 +1,41 @@
+{
+  "greenhouse": {
+    "temperature": 0,
+    "humidity": 0,
+    "soil_moisture": 0,
+    "light": 0,
+    "water_level_distance": 0,
+    "water_level_percent": 0,
+
+    "fan_state": 0,
+    "pump_state": 0,
+    "light_state": 0,
+
+    "health_score": 0,
+
+    "control": {
+      "auto_mode": 0,
+      "fan": 0,
+      "pump": 0,
+      "light": 0
+    },
+
+    "logs": {
+      "temperature": {
+        "init": 0
+      },
+      "humidity": {
+        "init": 0
+      },
+      "soil_moisture": {
+        "init": 0
+      },
+      "water_level_percent": {
+        "init": 0
+      },
+      "light": {
+        "init": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "123456789000",
+    "firebase_url": "https://iottest1-4dd35-default-rtdb.firebaseio.com",
+    "project_id": "iottest1-4dd35",
+    "storage_bucket": "iottest1-4dd35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123456789000:windows:abc123def456",
+        "android_client_info": {
+          "package_name": "com.greenhouse.digitaltwin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDummyKeyForUnityEditor"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

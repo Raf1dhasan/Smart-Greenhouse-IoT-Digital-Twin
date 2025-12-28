@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basil Greenhouse Dashboard</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card-bg: #ffffff;
+      --accent: #27ae60;
+      --accent-soft: #e5f7ec;
+      --danger: #c0392b;
+      --warning: #f59e0b;
+      --text-main: #1f2933;
+      --text-soft: #6b7280;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.08);
+      --radius-lg: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top left, #e3ffe7 0, #f5f7fb 50%, #fff 100%);
+      color: var(--text-main);
+      padding: 24px;
+    }
+
+    .wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* HERO */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #fef6e4, #e5f7ec);
+      border-radius: 26px;
+      padding: 24px 30px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 20px;
+      gap: 20px;
+    }
+
+    .hero-text {
+      flex: 1 1 260px;
+    }
+
+    .hero-title {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--text-soft);
+      max-width: 360px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(39, 174, 96, 0.08);
+      color: var(--accent);
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .hero-image {
+      flex: 0 0 180px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-image-inner {
+      position: relative;
+      width: 170px;
+      height: 170px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top, #ffe4b3, #fffbf5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    .hero-image-inner img {
+      width: 140%;
+      height: auto;
+      object-fit: contain;
+      transform: translateY(8px);
+    }
+
+    .hero-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-3d {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: none;
+      background: #111827;
+      color: #f9fafb;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    /* SUGGESTIONS */
+    .suggestions {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 18px;
+      border-left: 4px solid #22c55e;
+    }
+
+    .suggestions h3 {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .suggestions p {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 6px;
+    }
+
+    .suggestions ul {
+      padding-left: 18px;
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    /* GRID CARDS */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 26px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid transparent;
+      transition: background 0.25s, border-color 0.25s, transform 0.15s;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .card-chip {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #f3f4ff;
+      color: #4b5563;
+    }
+
+    .value-row {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .value-main {
+      font-size: 28px;
+      font-weight: 600;
+    }
+
+    .value-unit {
+      font-size: 14px;
+      color: var(--text-soft);
+    }
+
+    .status-label {
+      margin-top: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-soft);
+    }
+
+    .status-label span {
+      font-weight: 600;
+    }
+
+    .card.good {
+      background: #fff;
+      border-color: transparent;
+    }
+
+    .card.warning {
+      background: #fff7e6;
+      border-color: #f59e0b;
+    }
+
+    .card.critical {
+      background: #ffe4e6;
+      border-color: #ef4444;
+      animation: shake 0.25s linear 0s 2;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-2px); }
+      50% { transform: translateX(2px); }
+      75% { transform: translateX(-2px); }
+      100% { transform: translateX(0); }
+    }
+
+    .bar-wrapper {
+      width: 100%;
+      height: 7px;
+      background: #edf2f7;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 20px;
+      background: linear-gradient(90deg, #27ae60, #7ad88f);
+      transition: width 0.4s ease;
+    }
+
+    /* WATER TANK */
+    .tank {
+      margin-top: 10px;
+      width: 80px;
+      height: 110px;
+      border-radius: 16px;
+      border: 2px solid #cbd5e1;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(to top, #e5e7eb, #f9fafb);
+    }
+
+    .tank-water {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0%;
+      background: linear-gradient(180deg, #38bdf8, #1d4ed8);
+      transition: height 0.6s ease;
+    }
+
+    .tank-water:before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: -20%;
+      width: 140%;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      filter: blur(4px);
+    }
+
+    /* CONTROL SECTION */
+    .fan-section {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px 20px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .fan-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .fan-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .fan-title {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .fan-sub {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .fan-state-pill {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #fee2e2;
+      color: #b91c1c;
+      width: fit-content;
+    }
+
+    .fan-state-pill.on {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .toggle-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toggle-label {
+      font-size: 13px;
+      color: var(--text-soft);
+      min-width: 70px;
+      text-align: right;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 58px;
+      height: 30px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: #d1d5db;
+      transition: 0.3s;
+      border-radius: 999px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      bottom: 4px;
+      background: #fff;
+      transition: 0.3s;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.25);
+    }
+
+    input:checked + .slider {
+      background-color: var(--accent);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    /* TOASTS */
+    .toast-container {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 1000;
+    }
+
+    .toast {
+      min-width: 220px;
+      max-width: 280px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.35);
+      color: #111827;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      animation: fadeIn 0.25s ease-out;
+      background: #fff;
+    }
+
+    .toast.warning {
+      background: #fef9c3;
+      border-left: 4px solid #f59e0b;
+    }
+
+    .toast.critical {
+      background: #fee2e2;
+      border-left: 4px solid #ef4444;
+    }
+
+    .toast strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* CHARTS */
+    .charts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .chart-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-soft);
+      height: 260px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chart-card h3 {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .chart-card canvas {
+      flex: 1;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+      }
+
+      .hero {
+        padding: 18px 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrapper">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-badge">🌿 Basil Care · Live IoT</div>
+      <h1 class="hero-title">Smart Basil Greenhouse</h1>
+      <p class="hero-subtitle">
+        Monitoring your basil’s environment in real-time — water, light, humidity, and airflow — so your plants stay happy and fragrant.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-3d" onclick="open3DView()">🌐 Open 3D View (placeholder)</button>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <div class="hero-image-inner">
+        <img src="basil.png" alt="Basil plant" />
+      </div>
+    </div>
+  </section>
+
+  <!-- SUGGESTIONS -->
+  <section class="suggestions">
+    <h3>Live Basil Tips 🌱</h3>
+    <p id="suggestionIntro">We’ll show suggestions here when any sensor goes out of the happy range.</p>
+    <ul id="suggestionsList">
+      <li>All conditions look good for your basil right now.</li>
+    </ul>
+  </section>
+
+  <!-- HEALTH + SENSORS -->
+  <section class="grid">
+
+    <!-- Health Score -->
+    <div id="healthCard" class="card good">
+      <div class="card-header">
+        <div class="card-title">Basil Health Score 🩺</div>
+        <div class="card-chip">0 – 100</div>
+      </div>
+      <div class="value-row">
+        <div id="healthScore" class="value-main">--</div>
+        <div class="value-unit">/ 100</div>
+      </div>
+      <div class="bar-wrapper">
+        <div id="healthBar" class="bar-fill"></div>
+      </div>
+      <div class="status-label">Status: <span id="healthStatus">--</span></div>
+    </div>
+
+    <!-- Temp -->
+    <div id="tempCard" class="card good">
+      <div class="card-header">
+        <div class="card-title">Temperature 🌡</div>
+        <div class="card-chip">Air</div>
+      </div>
+      <div class="value-row">
+        <div id="temp" class="value-main">--</div>
+        <div class="value-unit">°C</div>
+      </div>
+      <div class="status-label">Status: <span id="tempStatus">--</span></div>
+    </div>
+
+    <!-- Humidity -->
+    <div id="humCard" class="card good">
+      <div class="card-header">
+        <div class="card-title">Humidity 💧</div>
+        <div class="card-chip">Air</div>
+      </div>
+      <div class="value-row">
+        <div id="humidity" class="value-main">--</div>
+        <div class="value-unit">%</div>
+      </div>
+      <div class="status-label">Status: <span id="humStatus">--</span></div>
+    </div>
+
+    <!-- Soil -->
+    <div id="soilCard" class="card good">
+      <div class="card-header">
+        <div class="card-title">Soil Moisture 🌱</div>
+        <div class="card-chip">Root Zone</div>
+      </div>
+      <div class="value-row">
+        <div id="soil" class="value-main">--</div>
+        <div class="value-unit">%</div>
+      </div>
+      <div class="bar-wrapper">
+        <div id="soilBar" class="bar-fill"></div>
+      </div>
+      <div class="status-label">Status: <span id="soilStatus">--</span></div>
+    </div>
+
+    <!-- Light -->
+    <div id="lightCard" class="card good">
+      <div class="card-header">
+        <div class="card-title">Light Level ☀️</div>
+        <div class="card-chip">Grow Light</div>
+      </div>
+      <div class="value-row">
+        <div id="light" class="value-main">--</div>
+        <div class="value-unit">%</div>
+      </div>
+      <div class="bar-wrapper">
+        <div id="lightBar" class="bar-fill"></div>
+      </div>
+      <div class="status-label">Status: <span id="lightStatus">--</span></div>
+    </div>
+
+    <!-- Distance -->
+    <div id="distCard" class="card good">
+      <div class="card-header">
+        <div class="card-title">Water Tank Distance 📏</div>
+        <div class="card-chip">Sensor</div>
+      </div>
+      <div class="value-row">
+        <div id="distance" class="value-main">--</div>
+        <div class="value-unit">cm</div>
+      </div>
+      <div class="status-label">Status: <span id="distStatus">--</span></div>
+    </div>
+
+    <!-- Water -->
+    <div id="waterCard" class="card good">
+      <div class="card-header">
+        <div class="card-title">Water Tank Fill 💧</div>
+        <div class="card-chip">Reservoir</div>
+      </div>
+      <div class="value-row">
+        <div id="water" class="value-main">--</div>
+        <div class="value-unit">%</div>
+      </div>
+      <div class="tank">
+        <div id="tankWater" class="tank-water"></div>
+      </div>
+      <div class="status-label">Status: <span id="waterStatus">--</span></div>
+    </div>
+
+  </section>
+
+  <!-- CHARTS -->
+  <section class="charts">
+    <div class="chart-card">
+      <h3>Environment History 🌡💧 (last 10)</h3>
+      <canvas id="envChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>Soil & Water History 🌱💧 (last 10)</h3>
+      <canvas id="soilChart"></canvas>
+    </div>
+  </section>
+
+  <!-- CONTROL SECTION -->
+  <section class="fan-section">
+
+    <!-- Auto Mode -->
+    <div class="fan-row">
+      <div class="fan-info">
+        <div class="fan-title">Automation Mode 🤖</div>
+        <div class="fan-sub">
+          When enabled, the system will automatically control the fan and water pump based on temperature, humidity, soil moisture and tank level.
+        </div>
+      </div>
+      <div class="toggle-wrapper">
+        <div class="toggle-label">Auto Mode</div>
+        <label class="switch">
+          <input id="autoToggle" type="checkbox" onchange="onAutoToggle(this)">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Fan -->
+    <div class="fan-row">
+      <div class="fan-info">
+        <div class="fan-title">Airflow Control 🌬</div>
+        <div class="fan-sub">Manual fan control (disabled while Auto Mode is ON).</div>
+        <div id="fanStatePill" class="fan-state-pill">Fan OFF</div>
+      </div>
+      <div class="toggle-wrapper">
+        <div class="toggle-label">Fan</div>
+        <label class="switch">
+          <input id="fanToggle" type="checkbox" onchange="onFanToggle(this)">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Pump -->
+    <div class="fan-row">
+      <div class="fan-info">
+        <div class="fan-title">Water Pump 💦</div>
+        <div class="fan-sub">Manual watering control (disabled while Auto Mode is ON).</div>
+        <div id="pumpStatePill" class="fan-state-pill">Pump OFF</div>
+      </div>
+      <div class="toggle-wrapper">
+        <div class="toggle-label">Water</div>
+        <label class="switch">
+          <input id="pumpToggle" type="checkbox" onchange="onPumpToggle(this)">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+</div>
+
+<!-- Firebase + Chart.js -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  /* ---------- FIREBASE CONFIG ---------- */
+  const firebaseConfig = {
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "https://iottest1-4dd35-default-rtdb.firebaseio.com",
+    projectId: "iottest1-4dd35",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  /* ---------- ELEMENTS ---------- */
+  const tempEl = document.getElementById("temp");
+  const humEl = document.getElementById("humidity");
+  const soilEl = document.getElementById("soil");
+  const lightEl = document.getElementById("light");
+  const distEl = document.getElementById("distance");
+  const waterEl = document.getElementById("water");
+  const healthEl = document.getElementById("healthScore");
+
+  const soilBar = document.getElementById("soilBar");
+  const lightBar = document.getElementById("lightBar");
+  const tankWater = document.getElementById("tankWater");
+  const healthBar = document.getElementById("healthBar");
+
+  const toastContainer = document.getElementById("toastContainer");
+  const suggestionsList = document.getElementById("suggestionsList");
+  const suggestionIntro = document.getElementById("suggestionIntro");
+
+  const tempCard = document.getElementById("tempCard");
+  const humCard = document.getElementById("humCard");
+  const soilCard = document.getElementById("soilCard");
+  const lightCard = document.getElementById("lightCard");
+  const distCard = document.getElementById("distCard");
+  const waterCard = document.getElementById("waterCard");
+  const healthCard = document.getElementById("healthCard");
+
+  const tempStatusEl = document.getElementById("tempStatus");
+  const humStatusEl = document.getElementById("humStatus");
+  const soilStatusEl = document.getElementById("soilStatus");
+  const lightStatusEl = document.getElementById("lightStatus");
+  const distStatusEl = document.getElementById("distStatus");
+  const waterStatusEl = document.getElementById("waterStatus");
+  const healthStatusEl = document.getElementById("healthStatus");
+
+  const fanToggle = document.getElementById("fanToggle");
+  const pumpToggle = document.getElementById("pumpToggle");
+  const autoToggle = document.getElementById("autoToggle");
+
+  const fanPill = document.getElementById("fanStatePill");
+  const pumpPill = document.getElementById("pumpStatePill");
+
+  /* ---------- NEW: Light Toggle Elements ---------- */
+  let lightToggle, lightPill;
+
+  /* ---------- Create LIGHT CONTROL BLOCK (Option A) ---------- */
+  const controlSection = document.querySelector(".fan-section");
+
+  const lightBlock = document.createElement("div");
+  lightBlock.className = "fan-row";
+  lightBlock.innerHTML = `
+    <div class="fan-info">
+      <div class="fan-title">Grow Light 💡</div>
+      <div class="fan-sub">Manual light control (disabled while Auto Mode is ON).</div>
+      <div id="lightStatePill" class="fan-state-pill">Light OFF</div>
+    </div>
+    <div class="toggle-wrapper">
+      <div class="toggle-label">Light</div>
+      <label class="switch">
+        <input id="lightToggle" type="checkbox">
+        <span class="slider"></span>
+      </label>
+    </div>
+  `;
+  controlSection.appendChild(lightBlock);
+
+  lightToggle = document.getElementById("lightToggle");
+  lightPill = document.getElementById("lightStatePill");
+
+  /* ---------- STORE LAST STATUS ---------- */
+  const lastStatus = {
+    temp: "good",
+    humidity: "good",
+    soil: "good",
+    light: "good",
+    water: "good"
+  };
+
+  const latest = {
+    temp: null,
+    humidity: null,
+    soil: null,
+    light: null,
+    waterPercent: null,
+    health: null
+  };
+
+  /* ---------- HELPERS ---------- */
+  function setText(el, val, suffix = "") {
+    el.innerText = (val == null ? "--" : val + suffix);
+  }
+  function setBar(el, p) {
+    el.style.width = (p == null ? "0%" : Math.max(0, Math.min(100, p)) + "%");
+  }
+  function setTank(p) {
+    tankWater.style.height = (p == null ? "0%" : Math.max(0, Math.min(100, p)) + "%");
+  }
+  function showToast(level, title, message) {
+    const t = document.createElement("div");
+    t.className = "toast " + level;
+    t.innerHTML = `<div><strong>${title}</strong>${message}</div>`;
+    toastContainer.appendChild(t);
+
+    setTimeout(() => {
+      t.style.opacity = "0";
+      setTimeout(() => t.remove(), 300);
+    }, 4000);
+  }
+
+  /* ---------- EVALUATION FUNCTIONS (unchanged) ---------- */
+  function evalTemp(t) {
+    if (t == null) return {status:"good",msg:""};
+    if (t < 15) return {status:"critical",msg:"Air is very cold. Move basil to warmth."};
+    if (t < 18) return {status:"warning",msg:"A bit cool — aim for >20°C."};
+    if (t > 34) return {status:"critical",msg:"Air too hot — increase airflow."};
+    if (t > 30) return {status:"warning",msg:"Quite warm — consider fan."};
+    return {status:"good",msg:""};
+  }
+
+  function evalHumidity(h) {
+    if (h < 25) return {status:"critical",msg:"Air is too dry — mist or add humidity."};
+    if (h < 30) return {status:"warning",msg:"A bit dry — basil likes 40–65%."};
+    if (h > 80) return {status:"critical",msg:"Very humid — increase airflow."};
+    if (h > 70) return {status:"warning",msg:"Humid — keep leaves dry."};
+    return {status:"good",msg:""};
+  }
+
+  function evalSoil(p) {
+    if (p < 30) return {status:"critical",msg:"Soil very dry — water soon."};
+    if (p < 40) return {status:"warning",msg:"Soil drying out."};
+    if (p > 90) return {status:"critical",msg:"Soil waterlogged — drain."};
+    if (p > 80) return {status:"warning",msg:"Soil wet — avoid overwatering."};
+    return {status:"good",msg:""};
+  }
+
+  function evalLight(p) {
+    if (p < 30) return {status:"critical",msg:"Very low light — needs strong light."};
+    if (p < 50) return {status:"warning",msg:"Light low — basil prefers brighter."};
+    if (p > 90) return {status:"warning",msg:"Light very strong — risk of leaf burn."};
+    return {status:"good",msg:""};
+  }
+
+  function evalWater(p) {
+    if (p < 5) return {status:"critical",msg:"Tank empty — refill now."};
+    if (p < 20) return {status:"warning",msg:"Tank getting low."};
+    return {status:"good",msg:""};
+  }
+
+  function applyCard(card, statusEl, key, evalResult) {
+    const {status,msg} = evalResult;
+
+    card.classList.remove("good","warning","critical");
+    card.classList.add(status);
+
+    statusEl.textContent = (status==="good" ? "OK" :
+                            status==="warning" ? "Needs attention" :
+                            "Critical");
+
+    if (status !== lastStatus[key] && (status === "warning" || status === "critical")) {
+      showToast(status, key.toUpperCase(), msg);
+    }
+    lastStatus[key] = status;
+    return msg;
+  }
+
+  function updateSuggestions() {
+    const msgs = [
+      evalTemp(Number(latest.temp)).msg,
+      evalHumidity(Number(latest.humidity)).msg,
+      evalSoil(Number(latest.soil)).msg,
+      evalLight(Number(latest.light)).msg,
+      evalWater(Number(latest.waterPercent)).msg
+    ].filter(m => m);
+
+    suggestionsList.innerHTML = "";
+
+    if (msgs.length === 0) {
+      suggestionIntro.innerText = "Everything looks good!";
+      const li = document.createElement("li");
+      li.innerText = "No issues detected.";
+      suggestionsList.appendChild(li);
+    } else {
+      suggestionIntro.innerText = "Suggested actions:";
+      msgs.forEach(m => {
+        const li = document.createElement("li");
+        li.innerText = m;
+        suggestionsList.appendChild(li);
+      });
+    }
+  }
+
+  /* ---------- SENSOR LISTENERS ---------- */
+  db.ref("greenhouse/temperature").on("value", snap => {
+    const v = snap.val();
+    latest.temp = v;
+    setText(tempEl, v);
+    applyCard(tempCard, tempStatusEl, "temp", evalTemp(Number(v)));
+    updateSuggestions();
+  });
+
+  db.ref("greenhouse/humidity").on("value", snap => {
+    const v = snap.val();
+    latest.humidity = v;
+    setText(humEl, v);
+    applyCard(humCard, humStatusEl, "humidity", evalHumidity(Number(v)));
+    updateSuggestions();
+  });
+
+  db.ref("greenhouse/soil_moisture").on("value", snap => {
+    const v = snap.val();
+    latest.soil = v;
+    setText(soilEl, v);
+    setBar(soilBar, v);
+    applyCard(soilCard, soilStatusEl, "soil", evalSoil(Number(v)));
+    updateSuggestions();
+  });
+
+  db.ref("greenhouse/light").on("value", snap => {
+    const v = snap.val();
+    latest.light = v;
+    setText(lightEl, v);
+    setBar(lightBar, v);
+    applyCard(lightCard, lightStatusEl, "light", evalLight(Number(v)));
+    updateSuggestions();
+  });
+
+  db.ref("greenhouse/water_level_percent").on("value", snap => {
+    const v = snap.val();
+    latest.waterPercent = v;
+    setText(waterEl, v);
+    setTank(v);
+    applyCard(waterCard, waterStatusEl, "water", evalWater(Number(v)));
+    updateSuggestions();
+  });
+
+  db.ref("greenhouse/water_level_distance").on("value", snap => {
+    setText(distEl, snap.val());
+  });
+
+  /* ---------- HEALTH SCORE ---------- */
+  db.ref("greenhouse/health_score").on("value", snap => {
+    const v = snap.val();
+    latest.health = v;
+    setText(healthEl, v);
+    setBar(healthBar, v);
+  });
+
+  /* ---------- DEVICE STATES ---------- */
+  db.ref("greenhouse/fan_state").on("value", snap => {
+    const v = Number(snap.val());
+    fanToggle.checked = v;
+    fanPill.classList.toggle("on", v);
+    fanPill.innerText = v ? "Fan ON" : "Fan OFF";
+  });
+
+  db.ref("greenhouse/pump_state").on("value", snap => {
+    const v = Number(snap.val());
+    pumpToggle.checked = v;
+    pumpPill.classList.toggle("on", v);
+    pumpPill.innerText = v ? "Pump ON" : "Pump OFF";
+  });
+
+  /* ---------- NEW: LIGHT STATE LISTENER ---------- */
+  db.ref("greenhouse/light_state").on("value", snap => {
+    const v = Number(snap.val());
+    lightToggle.checked = v;
+    lightPill.classList.toggle("on", v);
+    lightPill.innerText = v ? "Light ON" : "Light OFF";
+  });
+
+  /* ---------- AUTO MODE ---------- */
+  db.ref("greenhouse/control/auto_mode").on("value", snap => {
+    const auto = Number(snap.val());
+    autoToggle.checked = auto;
+
+    fanToggle.disabled = auto;
+    pumpToggle.disabled = auto;
+    lightToggle.disabled = auto;
+  });
+
+  /* ---------- MANUAL CONTROL ---------- */
+  fanToggle.onchange = () => {
+    db.ref("greenhouse/control/auto_mode").once("value").then(s => {
+      if (Number(s.val())===1) {
+        fanToggle.checked = !fanToggle.checked;
+        showToast("warning","AUTO MODE","Disable Auto Mode first.");
+      } else {
+        db.ref("greenhouse/control/fan").set(fanToggle.checked ? 1 : 0);
+      }
+    });
+  };
+
+  /* ---------- PUMP AUTO-TIMER (3s) ---------- */
+  pumpToggle.onchange = () => {
+    db.ref("greenhouse/control/auto_mode").once("value").then(s => {
+      if (Number(s.val()) === 1) {
+        pumpToggle.checked = !pumpToggle.checked;
+        showToast("warning","AUTO MODE","Disable Auto Mode first.");
+      } else {
+        if (pumpToggle.checked) {
+          db.ref("greenhouse/control/pump").set(1);
+
+          // auto turn off after 3 seconds
+          setTimeout(() => {
+            db.ref("greenhouse/control/pump").set(0);
+          }, 3000);
+
+        } else {
+          db.ref("greenhouse/control/pump").set(0);
+        }
+      }
+    });
+  };
+
+  /* ---------- NEW: LIGHT MANUAL CONTROL ---------- */
+  lightToggle.onchange = () => {
+    db.ref("greenhouse/control/auto_mode").once("value").then(s => {
+      if (Number(s.val()) === 1) {
+        lightToggle.checked = !lightToggle.checked;
+        showToast("warning","AUTO MODE","Disable Auto Mode first.");
+      } else {
+        db.ref("greenhouse/control/light").set(lightToggle.checked ? 1 : 0);
+      }
+    });
+  };
+
+  /* ---------- FLOW: AUTO MODE CHANGE ---------- */
+  autoToggle.onchange = () => {
+    const v = autoToggle.checked ? 1 : 0;
+    db.ref("greenhouse/control/auto_mode").set(v);
+  };
+
+  /* ---------- CHARTS (unchanged) ---------- */
+  const envCtx = document.getElementById("envChart").getContext("2d");
+  const soilCtx = document.getElementById("soilChart").getContext("2d");
+
+  const envChart = new Chart(envCtx, {
+    type: "line",
+    data: { labels: [], datasets:[
+      {label:"Temp",data:[],borderWidth:2,fill:false},
+      {label:"Humidity",data:[],borderWidth:2,fill:false}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false}
+  });
+
+  const soilChart = new Chart(soilCtx, {
+    type:"line",
+    data:{labels:[],datasets:[
+      {label:"Soil",data:[],borderWidth:2,fill:false},
+      {label:"Water",data:[],borderWidth:2,fill:false}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false}
+  });
+
+  function updateChart(path, chart, idx) {
+    db.ref(path).limitToLast(10).on("value", snap => {
+      const vals = Object.values(snap.val() || {}).map(v => Number(v)||0);
+      const labels = vals.map((_,i)=>"#"+(i+1));
+      chart.data.labels = labels;
+      chart.data.datasets[idx].data = vals;
+      chart.update();
+    });
+  }
+
+  updateChart("greenhouse/logs/temperature", envChart, 0);
+  updateChart("greenhouse/logs/humidity", envChart, 1);
+  updateChart("greenhouse/logs/soil_moisture", soilChart, 0);
+  updateChart("greenhouse/logs/water_level_percent", soilChart, 1);
+
+  /* ---------- 3D VIEW PLACEHOLDER ---------- */
+  function open3DView() {
+    alert("3D view not implemented yet.");
+  }
+</script>
+
+</body>
+</html>
