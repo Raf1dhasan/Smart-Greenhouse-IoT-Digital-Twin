@@ -5,6 +5,8 @@ An IoT-based smart greenhouse system with a real-time **digital twin** that moni
 This project demonstrates the integration of **IoT hardware, cloud services, and visualization technologies** to enable intelligent monitoring and decision-making for smart agriculture.
 
 ---
+<img width="1979" height="1101" alt="image" src="https://github.com/user-attachments/assets/812923b5-bf4c-4f00-8ec6-5504df29a142" />
+
 
 ## 🚀 Project Overview
 
@@ -36,6 +38,8 @@ The system helps users:
   - Digital twin concept implementation
 
 ---
+<img width="801" height="921" alt="image" src="https://github.com/user-attachments/assets/8a0b2ac7-5242-437c-aba5-61476ed7e96a" />
+<img width="1225" height="683" alt="image" src="https://github.com/user-attachments/assets/e65690cf-c7d0-43df-b4ec-75d6cc715436" />
 
 ## 📁 Repository Structure
 
