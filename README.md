@@ -37,16 +37,17 @@ The system helps users:
 
 ---
 
-## 📂 Repository Structure
+## 📁 Repository Structure
 
+```text
 Smart-Greenhouse-IoT-Digital-Twin/
 │
-├── Final_IoT_Project/ # Project source files and implementation
-├── index.html # Web dashboard interface
-├── hardware.json # Hardware and sensor configuration
-├── basil.png # Project image / asset
-├── IOT Presentation.pptx # Project presentation slides
-├── FinalIoTProject.pdf # Detailed project report
+├── Final_IoT_Project/          # Project source files and implementation
+├── index.html                 # Web dashboard interface
+├── hardware.json              # Hardware and sensor configuration
+├── basil.png                  # Project image / asset
+├── IOT Presentation.pptx      # Project presentation slides
+├── FinalIoTProject.pdf        # Detailed project report
 ├── FinalGreenhouseProject.exe # Demo application (Windows)
 └── .gitignore
 
